@@ -1,21 +1,15 @@
-import logging
-from pandas import DataFrame
-import os
-import openai
-from typing import List
 import json
+import logging
+import os
+from typing import List
 
+import openai
+from pandas import DataFrame
 from pydantic import BaseModel
 
 from project.file_reader import append_to_markdown_file
 
-INDEXING_RECORDS_PATH = "data/indexing_records.csv"
-TRIAL_INFORMATION_PATH = "data/payloads.jsonl"
-PATIENT_01_PATH = "data/patient_01.json"
-PATIENT_02_PATH = "data/patient_02.json"
-PATIENT_03_PATH = "data/patient_03.json"
-
-logger = logging.getLogger(__name__.split('.')[-1])
+logger = logging.getLogger(__name__)
 
 # Suppress HTTPX logs from OpenAI client to avoid cluttering the output
 openai._utils._logs.httpx_logger.setLevel(logging.WARNING)
@@ -41,6 +35,11 @@ def analyze_eligibility_criteria(
     trial_data: List[dict], 
     indexing_records: DataFrame
 ) -> None:
+    """
+    Analyzes Duchenne Muscular Dystrophy trials for eligibility criteria.
+    Uses OpenAI to identify relevant conditions and extract patterns.
+    Generates markdown report with common inclusion/exclusion criteria.
+    """
 
     # Get unique conditions to analyze
     unique_conditions = indexing_records['a.alias'].unique().tolist()
@@ -76,13 +75,6 @@ def analyze_eligibility_criteria(
 
 
 def print_eligibility_criteria(eligibility_criteria: str) -> None:
-    """
-    Print the eligibility criteria in a formatted way.
- 
-    Args:
-        eligibility_criteria (str): The eligibility criteria to print.
-    """
-      
     markdown_content = "## Assignment 4\n\n"
     markdown_content += "### Common Eligibility Criteria for Duchenne Muscular Dystrophy Trials\n\n"
     markdown_content += "The common eligibility criteria for Duchenne Muscular Dystrophy trials are:\n\n"
@@ -93,15 +85,6 @@ def print_eligibility_criteria(eligibility_criteria: str) -> None:
 
 
 def find_condition_list_in_response(response_text: str) -> List[str]:
-    """
-    Extracts a JSON array from the response text.
-
-    Args:
-        response_text (str): The text response from OpenAI containing a JSON array.
-
-    Returns:
-        List[str]: A list of strings parsed from the JSON array.
-    """
     start_idx = response_text.find('[')
     end_idx = response_text.rfind(']') + 1
     if start_idx != -1 and end_idx > start_idx:
@@ -114,6 +97,11 @@ def find_duchenne_muscular_dystrophy_conditions(
     client: openai.OpenAI, 
     unique_conditions: List[str]
 ) -> List[str]:
+    """
+    Identifies Duchenne Muscular Dystrophy conditions from condition list.
+    Uses OpenAI to analyze condition names and find DMD variants.
+    Processes conditions in batches and returns matching conditions.
+    """
 
     # Split the conditions found in the indexing records into manageable batches
     batch_size = 100
@@ -165,7 +153,7 @@ def find_duchenne_muscular_dystrophy_conditions(
         # Parse the response and convert it to a list of conditions
         response_text = response.choices[0].message.content.strip()
         conditions = find_condition_list_in_response(response_text)
-      
+    
         if len(conditions) == 0:
             logger.debug("No matching conditions found in this batch.")
             continue
@@ -185,6 +173,10 @@ def find_common_eligibility_criteria(
     client: openai.OpenAI,
     eligibility_criterias: List[dict]
 ) -> str:
+    """
+    Analyzes eligibility criteria for Duchenne Muscular Dystrophy trials.
+    Uses OpenAI to extract common patterns and generate a summary.
+    """
     content = """
     You are a clinical research expert analyzing clinical trial data. 
     Focus on providing specific, actionable information about eligibility 
@@ -232,7 +224,10 @@ def find_trials_per_condition(
         .tolist()
     )
     logger.info(
-        f"Found {len(relevant_trials)} trials related to conditions '{', '.join(conditions)}'."
+        (
+            f"Found {len(relevant_trials)} trials related to conditions "
+            f"'{', '.join(conditions)}'."
+        )
     )
     return relevant_trials
 
@@ -261,7 +256,11 @@ def determine_eligibility_score(
     client: openai.OpenAI,
     patient_profile: str,
     eligibility_criteria: dict
-) -> float:  
+) -> float:
+    """
+    Determines the eligibility score for a patient based on their profile
+    and the eligibility criteria of a clinical trial.
+    """
     prompt = f"""
     You are a clinical trial expert. Determine the eligibility score based on:
      - Information about the patient found in the patient profiles.
@@ -304,6 +303,11 @@ def determine_eligibility_per_trial(
     indexing_records: DataFrame,
     patient_paths: List[str]
 ) -> None:
+    """
+    Determines eligibility scores for patients in clinical trials.
+    Loads patient data, finds relevant trials, and calculates eligibility scores
+    using OpenAI. Scores are capped at 10 trials per patient to ensure quick processing.
+    """
     trial_scores_per_patient: List[List[dict]] = []
 
     for patient_path in patient_paths:
@@ -344,12 +348,6 @@ def determine_eligibility_per_trial(
 
 
 def print_trial_scores(trial_scores_per_patient: List[List[dict]]) -> None:
-    """
-    Print the trial scores for each patient in a formatted way.
-
-    Args:
-        trial_scores_per_patient (List[List[dict]]): The trial scores for each patient.
-    """
     markdown_content = "## Assignment 5 and 6\n\n"
     markdown_content += "### Eligibility Scores for Patients in Clinical Trials\n\n"
 

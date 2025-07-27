@@ -1,25 +1,15 @@
 import json
 import logging
-
 from typing import List
 
 import requests
 
 from .file_reader import append_to_markdown_file
 
-logger = logging.getLogger(__name__.split('.')[-1])
+logger = logging.getLogger(__name__)
 
 
 def make_http_request(request_type: str, url: str):
-    """
-    Make an HTTP request to the specified URL with the given request type.
-    Args:
-        request_type (str): The type of HTTP request (e.g., 'GET', 'POST')
-        url (str): The URL to make the request to
-
-    Returns:
-        Response object from the requests library
-        """
     try:
         with requests.request(
             request_type,
@@ -32,21 +22,19 @@ def make_http_request(request_type: str, url: str):
 
 
 def count_phases(trials) -> None:
-    """
-    Count the number of trials in each phase.
-    Args:
-        trials (List[dict]): List of trial dictionaries
-
-    Returns:
-        dict: Dictionary with phase names as keys and counts as values
-    """
+    """Counts trials in each phase and writes results to markdown.
+    Focuses on Phase 1, 2, and 3 for the final output.
+    Logs detailed phase information and creates formatted report."""
     phases = count_elements(trials, 'phase')
     logger.debug(f"Result of phase count: {phases}")
-  
+
     print_phases(phases)
 
 
 def print_phases(phases: dict):
+    """Creates formatted markdown report of phase distribution.
+    Focuses on Phase 1, 2, and 3 trials with counts and percentages.
+    Logs phase information and writes to assignment results file."""
     logger.info("Number of times phases occurred:")
 
     markdown_content = "## Assignment 1\n\n"
@@ -58,10 +46,10 @@ def print_phases(phases: dict):
         if phase in ['Phase 1', 'Phase 2', 'Phase 3']:
             markdown_content += f"- {phase}: {count}\n"
     markdown_content += "\n"
-  
+
     # Write to markdown file
     append_to_markdown_file(markdown_content)
-  
+
     # Also log the information
     for phase, count in phases.items():
         logger.info(f"{phase}: {count}")
@@ -78,11 +66,15 @@ def count_elements(trials, element: str):
             element_dict[e] += 1
     return element_dict
 
+
 def sorted_counts(d: dict) -> List[tuple]:
     return dict(sorted(d.items(), key=lambda x: x[1], reverse=True))
 
 
 def print_conditions(elements: dict, limit: int = None):
+    """Formats and writes top conditions analysis to markdown file.
+    Creates numbered list of most common conditions with counts.
+    Limits output to specified number (default 10) for readability."""
     markdown_content = "## Assignment 3\n\n"
     markdown_content += "### What are the top 10 most commonly studied conditions?\n\n"
 
@@ -111,9 +103,15 @@ def get_ten_sample_trials(trials: List[dict], phase: str) -> List[dict]:
 
 
 def calculate_average_number_of_enrollments(trials):
+    """Calculates average enrollments for Phase 1, 2, and 3 trials.
+    Makes API calls to clinicaltrials.gov to get enrollment data.
+    Uses sample of 10 trials per phase and writes results to markdown."""
 
     markdown_content = "## Assignment 2\n\n"
-    markdown_content += "### What is the average amount of (Estimated) Enrollments in a clinical trial in Phase 1, 2 and 3 each?\n\n"
+    markdown_content += (
+        "### What is the average amount of (Estimated) Enrollments in a clinical trial "
+        "in Phase 1, 2 and 3 each?\n\n"
+    )
 
     markdown_content += "Average number of enrollments:\n"
     for phase in ['Phase 1', 'Phase 2', 'Phase 3']:
@@ -126,7 +124,14 @@ def calculate_average_number_of_enrollments(trials):
     append_to_markdown_file(markdown_content)
 
 
-def calculate_average_number_of_enrollments_per_phase(trials: List[dict], phase: str, number_of_studies: int) -> float:
+def calculate_average_number_of_enrollments_per_phase(
+    trials: List[dict],
+    phase: str,
+    number_of_studies: int
+) -> float:
+    """Calculates average enrollment for specific phase using API calls.
+    Fetches enrollment data from clinicaltrials.gov for sample trials.
+    Returns average enrollment count for the specified phase."""
 
     average_number_of_enrollments = 0
     trials_in_specified_phase = get_ten_sample_trials(trials, phase)
@@ -137,9 +142,15 @@ def calculate_average_number_of_enrollments_per_phase(trials: List[dict], phase:
         logger.debug(f"Making HTTP request to {url}...")
         trial_test = make_http_request("GET", url)
         trial_dict = json.loads(trial_test.text)
-        number_of_enrollments =  trial_dict["studies"][0]["protocolSection"]["designModule"]["enrollmentInfo"]["count"]
+        number_of_enrollments = trial_dict["studies"][0]["protocolSection"]\
+            ["designModule"]["enrollmentInfo"]["count"]
 
-        logger.debug(f"trial {trial_id} in {phase} has {number_of_enrollments} enrollments")
+        logger.debug(
+            f"trial {trial_id} in {phase} has {number_of_enrollments} enrollments"
+        )
         average_number_of_enrollments += number_of_enrollments
 
-    return average_number_of_enrollments / number_of_studies if number_of_studies > 0 else 0
+    return (
+        average_number_of_enrollments / number_of_studies
+        if number_of_studies > 0 else 0
+    )

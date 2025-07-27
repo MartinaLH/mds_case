@@ -1,22 +1,18 @@
+import json
 import logging
 import os
-import json
 from typing import List
-from pandas import read_csv, DataFrame
 
-# Create logger for file_reader module
-logger = logging.getLogger("file_reader")
+from pandas import DataFrame, read_csv
+
+logger = logging.getLogger(__name__)
 
 
 def read_payloads_jsonl(filename) -> List[dict]:
     """
-    Read the payloads.jsonl file line by line and process each JSON object
-
-    Args:
-        filename (str): Path to the JSONL file
-
-    Returns:
-        List[dict]: List of trial dictionaries
+    Reads JSONL file line by line, parses JSON objects, returns trial data.
+    Shows progress every 1000 lines and handles parsing errors gracefully.
+    Returns empty list if file not found or on critical errors.
     """
     trials = []
     if not os.path.exists(filename):
@@ -52,24 +48,11 @@ def read_indexing_records(file_path: str) -> DataFrame:
 
 
 def initialize_markdown_file(file_path: str = "data/assignment_results.md"):
-    """
-    Create or reset the assignment_results.md file in the data folder.
-    If the file exists, it will be emptied and recreated with the header.
-    """
-    # Create or overwrite the file with the header
     with open(file_path, 'w', encoding='utf-8') as f:
         f.write("# Assignment Results\n\n")
 
 
 def append_to_markdown_file(content: str):
-    """
-    Append content to the assignment_results.md file in the data folder.
-
-    Args:
-        content (str): The content to append to the file
-    """
     file_path = "data/assignment_results.md"
-
-    # Append content to the file
     with open(file_path, 'a', encoding='utf-8') as f:
         f.write(content)

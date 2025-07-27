@@ -1,10 +1,7 @@
 #!/usr/bin/env python3
-"""
-Main entry point for the MDS case study.
-Run this script from the mds_case directory.
-"""
 
 import logging
+
 from project.file_reader import (
     initialize_markdown_file,
     read_indexing_records,
@@ -29,7 +26,7 @@ PATIENT_03_PATH = "data/patient_03.json"
 ASSIGNMENT_RESULTS_PATH = "data/assignment_results.md"
 
 logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__.split('.')[-1])
+logger = logging.getLogger(__name__)
 
 
 def initialize_assignment() -> tuple:

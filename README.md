@@ -1,6 +1,6 @@
 **TLDR:**
-This project analyzes some trial data and prints the results in the markdown called `assignment_results.md` in the data folder.
-You can check that markdown file, or run the project yourself and recreate that file.
+This project analyzes some trial data and prints the results in the markdown file called `assignment_results.md` in the data folder.
+You can check that markdown file for the results, or run the project yourself and recreate that file.
 
 
 ## Getting Started:

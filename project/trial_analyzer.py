@@ -1,7 +1,6 @@
 import json
 import logging
 
-import os
 from typing import List
 
 import requests
@@ -9,26 +8,7 @@ import requests
 from .file_reader import append_to_markdown_file, initialize_markdown_file, read_payloads_jsonl
 
 
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger("read_payloads")
-
-INDEXING_RECORDS_PATH = "data/indexing_records.csv"
-TRIAL_INFORMATION_PATH = "data/payloads.jsonl"
-PATIENT_01_PATH = "data/patient_01.json"
-PATIENT_02_PATH = "data/patient_02.json"
-PATIENT_03_PATH = "data/patient_03.json"
-ASSIGNMENT_RESULTS_PATH = "data/assignment_results.md"
-
-OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
-
-
-def initialize_assignment():
-
-    initialize_markdown_file()
-    trial_list = read_payloads_jsonl(TRIAL_INFORMATION_PATH)
-
-    return trial_list
-
+logger = logging.getLogger(__name__.split('.')[-1])
 
 
 def make_http_request(request_type: str, url: str):

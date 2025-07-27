@@ -2,6 +2,7 @@ import logging
 import os
 import json
 from typing import List
+from pandas import read_csv, DataFrame
 
 # Create logger for file_reader module
 logger = logging.getLogger("file_reader")
@@ -45,6 +46,14 @@ def read_payloads_jsonl(filename) -> List[dict]:
         logger.error(f"Error: File '{filename}' not found.")
     except Exception as e:
         logger.error(f"Error reading file: {e}")
+
+
+def read_indexing_records(file_path: str) -> DataFrame:
+    if not os.path.exists(file_path):
+        raise FileNotFoundError(f"File '{file_path}' not found.")
+    
+    df = read_csv(file_path)
+    return df
 
 
 def initialize_markdown_file(file_path: str = "data/assignment_results.md"):

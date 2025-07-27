@@ -7,7 +7,7 @@ import json
 
 from pydantic import BaseModel
 
-from read_payloads import read_payloads_jsonl
+from project.file_reader import read_payloads_jsonl
 
 INDEXING_RECORDS_PATH = "data/indexing_records.csv"
 TRIAL_INFORMATION_PATH = "data/payloads.jsonl"

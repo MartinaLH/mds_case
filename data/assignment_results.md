@@ -40,35 +40,32 @@ Top 10 Conditions:
 
 The common eligibility criteria for Duchenne Muscular Dystrophy trials are:
 
-Based on the analysis of the clinical trials data for Duchenne Muscular Dystrophy (DMD), here are the common eligibility criteria:
+Based on the clinical trial data provided for Duchenne Muscular Dystrophy (DMD), here is an analysis of common eligibility criteria:
 
 1. **Common Inclusion Criteria:**
-   - **Gender and Age:** Predominantly male participants, with age ranges typically from 1 month to 18 years, though some studies include older participants up to 55 years.
-   - **Diagnosis:** Confirmed diagnosis of DMD through genetic testing, often specifying mutations amenable to exon skipping (e.g., exons 44, 50, 51).
-   - **Functional Status:** Ability to perform specific motor tasks, such as walking independently or completing the Time to Stand Test (TTSTAND) within a certain time.
-   - **Stable Medication Use:** Stable dose of corticosteroids for a specified period (usually 3 to 12 months) prior to study entry.
-   - **Cardiac Function:** Adequate cardiac function, often defined by left ventricular ejection fraction (LVEF) thresholds (e.g., ≥40% or ≥45%).
+   - **Gender and Age:** Most trials require male participants, with age ranges typically starting from as young as 1 month to 18 years, depending on the specific study cohort.
+   - **Diagnosis Confirmation:** A confirmed diagnosis of DMD through genetic testing is essential. This often includes specific mutations in the dystrophin gene, such as those amenable to exon skipping.
+   - **Functional Ability:** Participants often need to demonstrate specific motor abilities, such as the ability to walk independently or perform certain motor tests like the Time to Stand Test (TTSTAND) or 6-Minute Walk Test (6MWT).
+   - **Stable Medication Regimen:** Many trials require participants to be on a stable dose of corticosteroids for a specified period (e.g., 12 weeks) before the study begins.
 
 2. **Common Exclusion Criteria:**
-   - **Infections and Comorbidities:** Active viral infections, significant comorbidities such as cardiomyopathy, or other clinically significant illnesses.
-   - **Previous Treatments:** Prior treatment with gene therapy, exon-skipping therapies, or investigational drugs within a specified timeframe before the study.
-   - **Laboratory Abnormalities:** Abnormal laboratory values, such as elevated liver enzymes or impaired renal function.
-   - **Respiratory Function:** Severe respiratory impairment, often defined by forced vital capacity (FVC) thresholds (e.g., <40%).
-   - **Surgical History:** Recent major surgery or planned surgery that could interfere with study participation.
+   - **Infections and Comorbidities:** Active infections (e.g., HIV, Hepatitis B/C) or significant comorbid conditions (e.g., severe cardiomyopathy, uncontrolled diabetes) are common exclusion factors.
+   - **Previous Treatments:** Prior treatment with gene therapy, exon-skipping drugs, or investigational drugs within a certain timeframe before the study often leads to exclusion.
+   - **Laboratory Abnormalities:** Clinically significant abnormal lab values, such as elevated liver enzymes or impaired renal function, can exclude participants.
+   - **Respiratory and Cardiac Function:** Poor respiratory function (e.g., FVC < 35%) or cardiac function (e.g., LVEF < 40%) are typical exclusion criteria.
 
 3. **Age Ranges Typically Studied:**
-   - Most studies focus on children and adolescents, with common age ranges from 4 to 18 years. Some studies include infants as young as 1 month and adults up to 55 years.
+   - Trials often focus on children and adolescents, with age ranges from as young as 1 month to 18 years. Some studies include adults up to 55 years, particularly for non-ambulatory cohorts or specific interventions.
 
 4. **Biomarker or Diagnostic Requirements:**
-   - Genetic confirmation of DMD, often specifying mutations amenable to exon skipping.
-   - Cardiac assessments such as echocardiograms to evaluate LVEF.
-   - Muscle function tests like the 6-Minute Walk Test (6MWT) or TTSTAND.
+   - Genetic testing to confirm DMD diagnosis is a standard requirement. This includes identifying specific mutations in the dystrophin gene.
+   - Some trials require specific cardiac or respiratory function tests, such as echocardiograms or spirometry, to assess eligibility.
 
 5. **Treatment History Requirements:**
-   - Stable use of corticosteroids for a specified period before study entry.
-   - Exclusion of participants who have received gene therapy or other investigational treatments within a certain timeframe prior to the study.
+   - Participants are often required to have been on a stable dose of corticosteroids for a certain period before the study.
+   - Exclusion of participants who have received certain treatments, such as gene therapy or exon-skipping drugs, within a specified timeframe before the study.
 
-These criteria are designed to ensure participant safety and the integrity of the study results by selecting a relatively homogeneous study population.
+These criteria ensure that participants are suitable for the specific interventions being tested and help maintain the safety and integrity of the clinical trials.
 
 ## Assignment 5 and 6
 
@@ -77,14 +74,14 @@ These criteria are designed to ensure participant safety and the integrity of th
 ### Patient 1 Trial Scores:
 
 - Trial ID: NCT06100276, Eligibility Score: 4.0
-- Trial ID: NCT06315608, Eligibility Score: 5.0
+- Trial ID: NCT06315608, Eligibility Score: 6.0
 - Trial ID: NCT05039099, Eligibility Score: 6.0
-- Trial ID: NCT05978908, Eligibility Score: 7.0
-- Trial ID: NCT04081714, Eligibility Score: 6.0
-- Trial ID: NCT06069934, Eligibility Score: 8.0
-- Trial ID: NCT02478450, Eligibility Score: 5.0
-- Trial ID: NCT04998305, Eligibility Score: 4.0
-- Trial ID: NCT04856982, Eligibility Score: 3.0
+- Trial ID: NCT05978908, Eligibility Score: 6.5
+- Trial ID: NCT04081714, Eligibility Score: 3.0
+- Trial ID: NCT06069934, Eligibility Score: 7.0
+- Trial ID: NCT02478450, Eligibility Score: 6.0
+- Trial ID: NCT04998305, Eligibility Score: 3.0
+- Trial ID: NCT04856982, Eligibility Score: 5.0
 - Trial ID: NCT05105958, Eligibility Score: 0.0
 
 ### Patient 2 Trial Scores:
@@ -93,23 +90,23 @@ These criteria are designed to ensure participant safety and the integrity of th
 - Trial ID: NCT05017883, Eligibility Score: 4.0
 - Trial ID: NCT04415008, Eligibility Score: 2.0
 - Trial ID: NCT04746235, Eligibility Score: 6.5
-- Trial ID: NCT04980885, Eligibility Score: 8.5
-- Trial ID: NCT05038644, Eligibility Score: 5.0
-- Trial ID: NCT03765541, Eligibility Score: 7.0
-- Trial ID: NCT04707300, Eligibility Score: 6.5
+- Trial ID: NCT04980885, Eligibility Score: 8.0
+- Trial ID: NCT05038644, Eligibility Score: 6.5
+- Trial ID: NCT03765541, Eligibility Score: 7.5
+- Trial ID: NCT04707300, Eligibility Score: 6.0
 - Trial ID: NCT03839771, Eligibility Score: 3.0
 - Trial ID: NCT03547115, Eligibility Score: 7.0
 
 ### Patient 3 Trial Scores:
 
-- Trial ID: NCT06100887, Eligibility Score: 6.0
+- Trial ID: NCT06100887, Eligibility Score: 5.0
 - Trial ID: NCT05933057, Eligibility Score: 5.0
 - Trial ID: NCT06114056, Eligibility Score: 7.0
 - Trial ID: NCT06013839, Eligibility Score: 5.0
-- Trial ID: NCT06053814, Eligibility Score: 2.0
-- Trial ID: NCT06079736, Eligibility Score: 5.0
-- Trial ID: NCT05670730, Eligibility Score: 7.0
-- Trial ID: NCT05996003, Eligibility Score: 4.0
-- Trial ID: NCT04587908, Eligibility Score: 7.5
-- Trial ID: NCT05693142, Eligibility Score: 7.0
+- Trial ID: NCT06053814, Eligibility Score: 3.0
+- Trial ID: NCT06079736, Eligibility Score: 4.0
+- Trial ID: NCT05670730, Eligibility Score: 5.0
+- Trial ID: NCT05996003, Eligibility Score: 5.0
+- Trial ID: NCT04587908, Eligibility Score: 7.0
+- Trial ID: NCT05693142, Eligibility Score: 9.0
 

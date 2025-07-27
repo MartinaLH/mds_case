@@ -44,7 +44,6 @@ def initialize_assignment() -> tuple:
 
 
 def main():
-    """Main function to run the complete trial analysis workflow."""
     # Set up logging
     logging.basicConfig(level=logging.INFO)
     logger = logging.getLogger("main")
@@ -58,7 +57,8 @@ def main():
     logger.info("Counting the number of trials in each phase.")
     count_phases(trials)
 
-    # Assignment 2: What is the average amount of (Estimated) Enrollments in a clinical trial in Phase 1, 2 and 3 each?
+    # Assignment 2: What is the average amount of (Estimated) Enrollments
+    # in a clinical trial in Phase 1, 2 and 3 each?
     logger.info("Calculating the average number of enrollments for each phase.")
     calculate_average_number_of_enrollments(trials)
 
@@ -78,10 +78,13 @@ def main():
     # scores the eligibility of the patient for that trial, using LLMs. 
     # This can be either on a scale of 0-10, or from categorical using 
     # eligible/ineligible/uncertain.
-
-
-
-    determine_eligibility_per_trial(client, trials, indexing_records, patient_paths)
+    logger.info("Determining eligibility for each trial per patient (capped at 10 trials).")
+    determine_eligibility_per_trial(
+        client,
+        trials,
+        indexing_records,
+        patient_paths
+    )
 
 
 if __name__ == "__main__":

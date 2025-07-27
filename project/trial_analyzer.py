@@ -5,8 +5,7 @@ from typing import List
 
 import requests
 
-from .file_reader import append_to_markdown_file, initialize_markdown_file, read_payloads_jsonl
-
+from .file_reader import append_to_markdown_file
 
 logger = logging.getLogger(__name__.split('.')[-1])
 
@@ -31,6 +30,7 @@ def make_http_request(request_type: str, url: str):
     except Exception as e:
         logger.error(f"Error making http request to {url}: {e}")
 
+
 def count_phases(trials) -> None:
     """
     Count the number of trials in each phase.
@@ -42,9 +42,10 @@ def count_phases(trials) -> None:
     """
     phases = count_elements(trials, 'phase')
     logger.debug(f"Result of phase count: {phases}")
-    
+  
     print_phases(phases)
-    
+
+
 def print_phases(phases: dict):
     logger.info("Number of times phases occurred:")
 
@@ -57,14 +58,13 @@ def print_phases(phases: dict):
         if phase in ['Phase 1', 'Phase 2', 'Phase 3']:
             markdown_content += f"- {phase}: {count}\n"
     markdown_content += "\n"
-    
+  
     # Write to markdown file
     append_to_markdown_file(markdown_content)
-    
+  
     # Also log the information
     for phase, count in phases.items():
         logger.info(f"{phase}: {count}")
-
 
 
 def count_elements(trials, element: str):
@@ -82,7 +82,6 @@ def sorted_counts(d: dict) -> List[tuple]:
     return dict(sorted(d.items(), key=lambda x: x[1], reverse=True))
 
 
-
 def print_conditions(elements: dict, limit: int = None):
     markdown_content = "## Assignment 3\n\n"
     markdown_content += "### What are the top 10 most commonly studied conditions?\n\n"
@@ -98,11 +97,11 @@ def print_conditions(elements: dict, limit: int = None):
     append_to_markdown_file(markdown_content)
     logger.info("Calculated the top 10 conditions.")
 
+
 def analyze_conditions(trials):
 
     conditions = sorted_counts(count_elements(trials, 'conditions'))    
     print_conditions(conditions, 10)
-
 
 
 def get_ten_sample_trials(trials: List[dict], phase: str) -> List[dict]:
@@ -122,9 +121,10 @@ def calculate_average_number_of_enrollments(trials):
         avg = calculate_average_number_of_enrollments_per_phase(trials, phase, 10)
 
         markdown_content += f" - {phase}: {avg}\n"
-    
+
     # Write to markdown file
     append_to_markdown_file(markdown_content)
+
 
 def calculate_average_number_of_enrollments_per_phase(trials: List[dict], phase: str, number_of_studies: int) -> float:
 
@@ -143,12 +143,3 @@ def calculate_average_number_of_enrollments_per_phase(trials: List[dict], phase:
         average_number_of_enrollments += number_of_enrollments
 
     return average_number_of_enrollments / number_of_studies if number_of_studies > 0 else 0
-
-
-
-
-
-
-
-
-

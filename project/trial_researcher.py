@@ -31,7 +31,7 @@ def initiate_openai_client() -> openai.OpenAI:
 
     if not key:
         raise ValueError("OPENAI_API_KEY environment variable is not set.")
-  
+
     client = openai.OpenAI(api_key=key)
     return client
 
@@ -41,7 +41,7 @@ def analyze_eligibility_criteria(
     trial_data: List[dict], 
     indexing_records: DataFrame
 ) -> None:
- 
+
     # Get unique conditions to analyze
     unique_conditions = indexing_records['a.alias'].unique().tolist()
 
@@ -51,7 +51,10 @@ def analyze_eligibility_criteria(
     )
 
     # Find trials related to these conditions
-    relevant_trials = find_trials_per_condition(relevant_conditions, indexing_records)
+    relevant_trials = find_trials_per_condition(
+        relevant_conditions, indexing_records
+    )
+
     relevant_trial_data = [
         trial for trial in trial_data
         if trial.get('utn') in relevant_trials
@@ -67,20 +70,19 @@ def analyze_eligibility_criteria(
         client, 
         elegibility_criterias
     )
-    
-    logger.info("Found common eligibility criteria for Duchenne Muscular Dystrophy trials.")
 
+    logger.info("Found common eligibility criteria for Duchenne Muscular Dystrophy trials.")
     print_eligibility_criteria(eligibility_criteria)
 
 
 def print_eligibility_criteria(eligibility_criteria: str) -> None:
     """
     Print the eligibility criteria in a formatted way.
-  
+ 
     Args:
         eligibility_criteria (str): The eligibility criteria to print.
     """
-       
+      
     markdown_content = "## Assignment 4\n\n"
     markdown_content += "### Common Eligibility Criteria for Duchenne Muscular Dystrophy Trials\n\n"
     markdown_content += "The common eligibility criteria for Duchenne Muscular Dystrophy trials are:\n\n"
@@ -93,10 +95,10 @@ def print_eligibility_criteria(eligibility_criteria: str) -> None:
 def find_condition_list_in_response(response_text: str) -> List[str]:
     """
     Extracts a JSON array from the response text.
-  
+
     Args:
         response_text (str): The text response from OpenAI containing a JSON array.
-  
+
     Returns:
         List[str]: A list of strings parsed from the JSON array.
     """
@@ -163,7 +165,7 @@ def find_duchenne_muscular_dystrophy_conditions(
         # Parse the response and convert it to a list of conditions
         response_text = response.choices[0].message.content.strip()
         conditions = find_condition_list_in_response(response_text)
-        
+      
         if len(conditions) == 0:
             logger.debug("No matching conditions found in this batch.")
             continue
@@ -223,7 +225,7 @@ def find_common_eligibility_criteria(
 def find_trials_per_condition(
         conditions: List[str], 
         indexing_records: DataFrame
-    ) -> List[str]:
+) -> List[str]:
     relevant_trials = (
         indexing_records[indexing_records['a.alias'].isin(conditions)]['s.id']
         .unique()
@@ -265,16 +267,19 @@ def determine_eligibility_score(
      - Information about the patient found in the patient profiles.
      - The eligibility criteria for the trial.
 
-    The information about the patient profiles can be found in the patient profile {patient_profile}:
+    The information about the patient profiles can be found in 
+    the patient profile {patient_profile}:
 
     The eligibility criteria for the trial are: {eligibility_criteria}
-    Please provide a score from 0 to 10 based on how well the patient profile matches the eligibility criteria.
-    
+    Please provide a score from 0 to 10 based on how well the patient 
+    profile matches the eligibility criteria.
+   
     Please provide the response as a float number between 0 and 10, where:
     - 0 means the patient does not meet any of the criteria
     - 10 means the patient meets all of the criteria
 
-    Don't include any additional text or reasoning, just return the score as a float number.
+    Don't include any additional text or reasoning, just return the score
+    as a float number.
 
     """
 
@@ -319,26 +324,29 @@ def determine_eligibility_per_trial(
         relevant_trials = relevant_trials[:10]
 
         for trial_id in relevant_trials:
-            trial_information = next((trial for trial in trial_data if trial.get('utn') == trial_id), None)
+            trial_information = next(
+                (trial for trial in trial_data if trial.get('utn') == trial_id),
+                None
+            )
 
             eligibility_criteria = trial_information['eligibility']
 
-            # logger.info(f"Determining eligibility for trial {trial_id} with criteria: {elegibility_criteria}, patient profile: {patient_profile}")
             eligibility_score = determine_eligibility_score(
                 client, patient_profile, eligibility_criteria
             )
             trial_scores[trial_id] = eligibility_score
-            logger.debug(f"Eligibility score for trial {trial_id}: {eligibility_score}")
+            logger.debug(
+                f"Eligibility score for trial {trial_id}: {eligibility_score}"
+            )
 
-        trial_scores_per_patient.append(trial_scores)
-    
+        trial_scores_per_patient.append(trial_scores)  
     print_trial_scores(trial_scores_per_patient)
 
 
 def print_trial_scores(trial_scores_per_patient: List[List[dict]]) -> None:
     """
     Print the trial scores for each patient in a formatted way.
-  
+
     Args:
         trial_scores_per_patient (List[List[dict]]): The trial scores for each patient.
     """
@@ -352,4 +360,3 @@ def print_trial_scores(trial_scores_per_patient: List[List[dict]]) -> None:
         markdown_content += "\n"
 
     append_to_markdown_file(markdown_content)
-

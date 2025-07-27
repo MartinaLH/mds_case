@@ -1,4 +1,9 @@
-## Getting started:
+**TLDR:**
+This project analyzes some trial data and prints the results in the markdown called `assignment_results.md` in the data folder.
+You can check that markdown file, or run the project yourself and recreate that file.
+
+
+## Getting Started:
 
 To get started, make sure you have Python 3.8 or higher installed.
 You also need an OpenAI API key and the source data files.
@@ -68,8 +73,8 @@ This will:
 
 - Check if the OpenAI results actually make any sense, for example:
     - Check if the number of trials found seems accurate
-    - Check if the eligibiity criterea make sense
+    - Check if the eligibility criteria make sense
 
-- Evaluate performance vs accuracy of calls to OpenAi
-    - To determine the eligibility per trial, we now send each trial as a separate request.  This is very slow, which is why the number of trials to check has been capped at 10.
-    It would be nice to find out if sending each trial separately versus all of the trial at once makes a difference in speed and in the accuracy of the result.
+- Evaluate performance vs accuracy of calls to OpenAI
+    - To determine the eligibility per trial, we now send each trial as a separate request. This is very slow, which is why the number of trials to check has been capped at 10.
+    It would be nice to find out if sending each trial separately versus all of the trials at once makes a difference in speed and in the accuracy of the result.
